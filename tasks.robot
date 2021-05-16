@@ -97,9 +97,10 @@ Clean PDF files from output folder
         Run keyword if    "${file.name}" != "robot_orders.zip"   RPA.FileSystem.Remove File    ${file}
     END
 
-Reset input and output folders
+Reset input folder
     # Clear the folders for both input and output before running the robot
-    ${folders}=  Create List    ${CURDIR}${/}input${/}  ${CURDIR}${/}output${/}
+    ${folders}=  Create List    ${CURDIR}${/}input${/} 
+    
     FOR  ${folder}  IN  @{folders}
         ${files}=    RPA.FileSystem.List Files In Directory    ${folder}
         FOR    ${file}  IN  @{FILES}
@@ -149,7 +150,7 @@ Failure dialog
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
-    # Reset input and output folders
+    Reset input folder
     
     # Continue if user provides correct input data URL
     # Else suggest the correct url to the user through a failure dialog. 
