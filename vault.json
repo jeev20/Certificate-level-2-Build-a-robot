@@ -1,0 +1,7 @@
+{
+  "vault": {
+    "RobotSpareBinUrl": "https://robotsparebinindustries.com/#/robot-order",
+    "OrdersDataUrl"   : "https://robotsparebinindustries.com/orders.csv"
+
+  }
+}
