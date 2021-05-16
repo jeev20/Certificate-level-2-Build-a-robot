@@ -149,7 +149,7 @@ Failure dialog
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
-    Reset input and output folders
+    # Reset input and output folders
     
     # Continue if user provides correct input data URL
     # Else suggest the correct url to the user through a failure dialog. 
