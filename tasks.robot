@@ -119,12 +119,12 @@ Click Submit Button
 Submit the order
     # Look for errors in the submit page and handle the errors without stopping the process
     [Arguments]  ${orderNumber}
-    Wait Until Keyword Succeeds  5x   3 sec   Click Submit Button
+    Wait Until Keyword Succeeds  5x   2 sec   Click Submit Button
     Wait Until Page Contains Element  //*[@id="root"]/div/div[1]/div/div[1]/div
     ${TextErrorMessage}=  Get Element Attribute   //*[@id="root"]/div/div[1]/div/div[1]/div   Role
     Log  ${TextErrorMessage}
     IF  "${TextErrorMessage}"==${errorDivRole}
-        Wait Until Keyword Succeeds  5x   3 sec  Click Submit Button
+        Wait Until Keyword Succeeds  5x   2 sec  Click Submit Button
         Make another order  ${orderNumber}
     ELSE 
           Make another order  ${orderNumber}
@@ -132,8 +132,8 @@ Submit the order
      
 Input form dialog for input CSV url
     # Get user input string for the input data CSV.
-    Add heading       Give me location!
-    Add text input    csvURL    label=URL of csv
+    Add heading       Provide the input CSV url
+    Add text input    csvURL    label=Orders CSV
     ${result}=    Run dialog
     [Return]  ${result.csvURL}
     
