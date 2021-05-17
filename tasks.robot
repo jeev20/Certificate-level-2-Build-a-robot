@@ -169,7 +169,8 @@ Order robots from RobotSpareBin Industries Inc
 
         Close Modal Popup
         Close All Browsers 
-        Create zip file 
+        Create zip file
+        Reset input folder
         Clean PDF files from output folder  ${CURDIR}${/}output${/} 
     
     ELSE
