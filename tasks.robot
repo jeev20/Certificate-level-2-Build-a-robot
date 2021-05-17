@@ -6,7 +6,7 @@ Documentation     Orders robots from RobotSpareBin Industries Inc.
 ...               Embeds the screenshot of the robot to the PDF receipt.
 ...               Creates ZIP archive of the receipts and the images.
 
-Library     RPA.Browser.Selenium
+Library     RPA.Browser.Selenium  
 Library     RPA.Tables
 Library     RPA.HTTP
 Library     OperatingSystem
@@ -99,14 +99,22 @@ Clean PDF files from output folder
 
 Reset input folder
     # Clear the folders for both input and output before running the robot
-    ${folders}=  Create List    ${CURDIR}${/}input${/} 
+    ${folder}=  Create List    ${CURDIR}${/}input${/} 
     
-    FOR  ${folder}  IN  @{folders}
-        ${files}=    RPA.FileSystem.List Files In Directory    ${folder}
-        FOR    ${file}  IN  @{FILES}
+    FOR  ${files}  IN  @{folder}
+        ${inputFiles}=    RPA.FileSystem.List Files In Directory    ${files}
+        FOR    ${file}  IN  @{inputFiles}
             RPA.FileSystem.Remove File    ${file}
         END
     END 
+    
+Reset output folder
+    [Arguments]  ${folderPath}
+    # Deletes the content of a given folder
+    ${files}=    RPA.FileSystem.List Files In Directory   ${folderPath}
+    FOR    ${file}  IN  @{FILES}
+        Run keyword if    "${file.name}" == "robot_orders.zip"   RPA.FileSystem.Remove File    ${file}
+    END
 
 Click Submit Button
     # Click onh te submit page when it exists
@@ -150,8 +158,10 @@ Failure dialog
 
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
+    # Lets start with a clean slate. Remove files and let the robot download and 
+    # make the required output files again
     Reset input folder
-    
+    Reset output folder  ${CURDIR}${/}output${/}
     # Continue if user provides correct input data URL
     # Else suggest the correct url to the user through a failure dialog. 
     ${UsercsvUrl}=  Input form dialog for input CSV url
@@ -171,14 +181,11 @@ Order robots from RobotSpareBin Industries Inc
         Close All Browsers 
         Create zip file
         Reset input folder
+        # Lets clean up all PDF files since the already exist in the ZIP file
         Clean PDF files from output folder  ${CURDIR}${/}output${/} 
     
     ELSE
     Failure dialog  ${csvURL}
     END
-
-
-
-
 
 
